@@ -8,7 +8,7 @@ public class PalindromeCheckerApp {
         String input = sc.nextLine();
 
         // Convert string to character array
-        char[] chars = input.toCharArray();
+        char[] chars = input .toCharArray();
 
         boolean isPalindrome = true;
 
