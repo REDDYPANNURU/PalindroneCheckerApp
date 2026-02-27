@@ -3,21 +3,26 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    // Recursive method
-    public static boolean isPalindrome(String str, int start, int end) {
+    public static boolean isPalindrome(String input) {
 
-        // Base case: If pointers have crossed or are equal
-        if (start >= end) {
-            return true;
+        // Remove all non-alphanumeric characters (including spaces)
+        input = input.replaceAll("[^a-zA-Z0-9]", "");
+
+        // Convert to lowercase for case-insensitive comparison
+        input = input.toLowerCase();
+
+        int start = 0;
+        int end = input.length() - 1;
+
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
 
-        // If characters don't match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call for inner substring
-        return isPalindrome(str, start + 1, end - 1);
+        return true;
     }
 
     public static void main(String[] args) {
@@ -26,9 +31,7 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
-
-        if (result) {
+        if (isPalindrome(input)) {
             System.out.println("The string is a palindrome.");
         } else {
             System.out.println("The string is not a palindrome.");
