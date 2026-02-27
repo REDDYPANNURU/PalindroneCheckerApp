@@ -1,20 +1,24 @@
 import java.util.Scanner;
 
-public class PalindromeCheckerApp {
+// Palindrome class (Encapsulation)
+class Palindrome {
 
-    public static boolean isPalindrome(String input) {
+    private String text;
 
-        // Remove all non-alphanumeric characters (including spaces)
-        input = input.replaceAll("[^a-zA-Z0-9]", "");
+    // Constructor
+    public Palindrome(String text) {
+        this.text = text;
+    }
 
-        // Convert to lowercase for case-insensitive comparison
-        input = input.toLowerCase();
+    // Method to check palindrome (ignores case and spaces)
+    public boolean isPalindrome() {
+        String cleaned = text.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
         int start = 0;
-        int end = input.length() - 1;
+        int end = cleaned.length() - 1;
 
         while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+            if (cleaned.charAt(start) != cleaned.charAt(end)) {
                 return false;
             }
             start++;
@@ -24,16 +28,28 @@ public class PalindromeCheckerApp {
         return true;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    // Getter method
+    public String getText() {
+        return text;
+    }
+}
 
+// Main class
+public class OOPPalindromeCheck {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        if (isPalindrome(input)) {
-            System.out.println("The string is a palindrome.");
+        // Create object
+        Palindrome palindrome = new Palindrome(input);
+
+        // Call method
+        if (palindrome.isPalindrome()) {
+            System.out.println("The string \"" + palindrome.getText() + "\" is a palindrome.");
         } else {
-            System.out.println("The string is not a palindrome.");
+            System.out.println("The string \"" + palindrome.getText() + "\" is not a palindrome.");
         }
 
         sc.close();
