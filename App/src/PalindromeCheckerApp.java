@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class PalindromeCheckerApp {
+ UC3-StringReverse
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -21,5 +22,9 @@ public class PalindromeCheckerApp {
         }
 
         sc.close();
+    public class void main(String[] args){
+        System.out.println("Welcome to Palindrone Checker App Management System");
+        System.out.println("Modify this logic to usecase 2");
+ main
     }
 }
