@@ -1,3 +1,4 @@
+ UC7
 import java.util.Scanner;
 
 public class PalindromeCheckerApp {
