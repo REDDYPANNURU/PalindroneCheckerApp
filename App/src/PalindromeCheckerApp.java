@@ -1,18 +1,31 @@
 import java.util.Scanner;
 
-// Palindrome class (Encapsulation)
-class Palindrome {
+// Strategy Interface
+interface PalindromeStrategy {
+    boolean isPalindrome(String text);
+}
 
-    private String text;
+// Concrete Strategy 1: Reverse Method
+class ReverseStrategy implements PalindromeStrategy {
 
-    // Constructor
-    public Palindrome(String text) {
-        this.text = text;
+    @Override
+    public boolean isPalindrome(String text) {
+        String cleaned = cleanText(text);
+        String reversed = new StringBuilder(cleaned).reverse().toString();
+        return cleaned.equals(reversed);
     }
 
-    // Method to check palindrome (ignores case and spaces)
-    public boolean isPalindrome() {
-        String cleaned = text.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    private String cleanText(String text) {
+        return text.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
+}
+
+// Concrete Strategy 2: Two Pointer Method
+class TwoPointerStrategy implements PalindromeStrategy {
+
+    @Override
+    public boolean isPalindrome(String text) {
+        String cleaned = cleanText(text);
 
         int start = 0;
         int end = cleaned.length() - 1;
@@ -24,33 +37,53 @@ class Palindrome {
             start++;
             end--;
         }
-
         return true;
     }
 
-    // Getter method
-    public String getText() {
-        return text;
+    private String cleanText(String text) {
+        return text.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 }
 
-// Main class
-public class OOPPalindromeCheck {
+// Context Class
+class PalindromeContext {
+
+    private PalindromeStrategy strategy;
+
+    public PalindromeContext(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(PalindromeStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public boolean check(String text) {
+        return strategy.isPalindrome(text);
+    }
+}
+
+// Main Class
+public class StrategyPatternPalindrome {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        // Create object
-        Palindrome palindrome = new Palindrome(input);
+        // Start with Reverse Strategy
+        PalindromeContext context = new PalindromeContext(new ReverseStrategy());
 
-        // Call method
-        if (palindrome.isPalindrome()) {
-            System.out.println("The string \"" + palindrome.getText() + "\" is a palindrome.");
-        } else {
-            System.out.println("The string \"" + palindrome.getText() + "\" is not a palindrome.");
-        }
+        System.out.println("\nUsing Reverse Strategy:");
+        System.out.println(context.check(input) ? "Palindrome" : "Not Palindrome");
+
+        // Switch to Two Pointer Strategy
+        context.setStrategy(new TwoPointerStrategy());
+
+        System.out.println("\nUsing Two Pointer Strategy:");
+        System.out.println(context.check(input) ? "Palindrome" : "Not Palindrome");
 
         sc.close();
     }
