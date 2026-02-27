@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.Queue;
 import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
@@ -10,21 +8,18 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
+        LinkedList<Character> list = new LinkedList<>();
 
-        // Add characters to both stack and queue
+        // Add characters to linked list
         for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
-            stack.push(ch);     // LIFO
-            queue.add(ch);      // FIFO
+            list.add(input.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // Compare elements from stack and queue
-        while (!stack.isEmpty()) {
-            if (stack.pop() != queue.remove()) {
+        // Compare first and last elements
+        while (list.size() > 1) {
+            if (!list.removeFirst().equals(list.removeLast())) {
                 isPalindrome = false;
                 break;
             }
